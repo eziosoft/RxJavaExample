@@ -9,17 +9,18 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.netguru.rxjavaexample2.ui.theme.RxJavaExample2Theme
-import com.ui.MainScreen
-import com.ui.MainViewModel
+import com.netguru.ui.MainScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModels<SharedViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             RxJavaExample2Theme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
