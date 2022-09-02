@@ -1,6 +1,6 @@
-package com.netguru.remote
+package com.netguru.data.remote
 
-import com.netguru.remote.openApi.OpenApiResponse
+import com.netguru.data.remote.models.OpenApiResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

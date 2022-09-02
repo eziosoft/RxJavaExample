@@ -1,4 +1,4 @@
-package com.netguru.ui
+package com.netguru.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,10 +11,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.rxjava2.subscribeAsState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
@@ -30,7 +33,22 @@ fun MainScreen(viewModel: MainScreenViewModel = viewModel()) {
                 }
             )
 
-            Text(text = "Results ${screenFlow.value.places.size}")
+            Spacer(
+                modifier = Modifier
+                    .background(Color.Gray)
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .padding(4.dp)
+            )
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                text = "${screenFlow.value.places.size} results",
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.End
+            )
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
             ) {
@@ -38,7 +56,8 @@ fun MainScreen(viewModel: MainScreenViewModel = viewModel()) {
                     ListItem(
                         text = it,
                         startDate = screenFlow.value.places[it]?.first()?.startDate ?: "",
-                        endDate = screenFlow.value.places[it]?.first()?.endDate ?: ""
+                        endDate = screenFlow.value.places[it]?.first()?.endDate ?: "",
+                        nbLocations = screenFlow.value.places[it]?.count()
                     )
                 }
             }
@@ -59,13 +78,12 @@ fun MainScreen(viewModel: MainScreenViewModel = viewModel()) {
 
 @Composable
 fun Search(onSearch: (String) -> Unit) {
-    var text by remember {
+    var text by rememberSaveable() {
         mutableStateOf("")
     }
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.LightGray)
             .padding(10.dp)
     ) {
         Text(text = "Search")
@@ -93,7 +111,7 @@ fun Search(onSearch: (String) -> Unit) {
                 Icon(
                     imageVector = Icons.Filled.Search,
                     contentDescription = "contentDescription",
-                    tint = Color.White
+                    tint = Color.Black
                 )
             }
         }
@@ -101,13 +119,16 @@ fun Search(onSearch: (String) -> Unit) {
 }
 
 @Composable
-fun ListItem(text: String, startDate: String, endDate: String) {
+fun ListItem(text: String, startDate: String, endDate: String, nbLocations: Int?) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)
     ) {
-        Text(text)
+        Text(text, fontWeight = FontWeight.ExtraBold)
+        nbLocations?.let {
+            Text("$it locations")
+        }
         Text("$startDate - $endDate")
         Spacer(
             modifier = Modifier

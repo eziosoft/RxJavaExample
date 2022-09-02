@@ -1,4 +1,4 @@
-package com.netguru.remote.openApi
+package com.netguru.data.remote.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -7,9 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class Fields(
     val annee_tournage: Int?,
     val coord_y: Double?,
-    /***
-     * used as distance from current location
-     */
     var coord_x: Double?,
     val date_fin: String?,
     val type_tournage: String?,
@@ -23,5 +20,4 @@ data class Fields(
     val dist: Double?,
     val date_debut: String?,
     val ardt_lieu: Int?,
-
 ) : Parcelable

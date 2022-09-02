@@ -1,4 +1,4 @@
-package com.netguru.rxjavaexample2
+package com.netguru.presentation
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

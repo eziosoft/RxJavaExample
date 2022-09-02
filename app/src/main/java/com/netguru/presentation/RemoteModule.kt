@@ -1,8 +1,8 @@
-package com.netguru.rxjavaexample2
+package com.netguru.presentation
 
 import android.content.Context
-import com.netguru.remote.OpenApi
-import com.netguru.repository.Repository
+import com.netguru.data.MovieRepository
+import com.netguru.data.remote.OpenApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +18,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DiModule {
+class RemoteModule {
 
     @Provides
     @Singleton
@@ -48,6 +48,6 @@ class DiModule {
 
     @Provides
     @Singleton
-    fun provideRepository(openApi: OpenApi): Repository =
-        Repository(openApiClient = openApi)
+    fun provideRepository(openApi: OpenApi): MovieRepository =
+        MovieRepository(openApiClient = openApi)
 }

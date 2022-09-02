@@ -1,4 +1,4 @@
-package com.netguru.rxjavaexample2.ui.theme
+package com.netguru.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

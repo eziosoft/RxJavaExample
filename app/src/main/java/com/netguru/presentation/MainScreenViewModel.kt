@@ -1,9 +1,9 @@
-package com.netguru.ui
+package com.netguru.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.netguru.domain.Place
-import com.netguru.domain.usecase.GetGroupedMoviesUsecase
+import com.netguru.domain.entities.Movie
+import com.netguru.domain.usecase.GetGroupedMoviesUseCase
 import com.netguru.domain.usecase.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -12,14 +12,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class ViewState(
-    val places: Map<String, List<Place>> = emptyMap(),
+    val places: Map<String, List<Movie>> = emptyMap(),
     val errorMessage: String? = null,
     val loading: Boolean = false
 )
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
-    getGroupedMoviesUseCase: GetGroupedMoviesUsecase,
+    getGroupedMoviesUseCase: GetGroupedMoviesUseCase,
     private val searchUseCase: SearchUseCase
 ) : ViewModel() {
     val viewStateSubject: BehaviorSubject<ViewState> = BehaviorSubject.create()
@@ -45,7 +45,7 @@ class MainScreenViewModel @Inject constructor(
         viewStateSubject.onNext(ViewState(loading = true))
     }
 
-    private fun setViewState(result: Result<Map<String, List<Place>>>) {
+    private fun setViewState(result: Result<Map<String, List<Movie>>>) {
         viewModelScope.launch {
             when {
                 result.isSuccess ->
