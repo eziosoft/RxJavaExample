@@ -19,7 +19,7 @@ data class ViewState(
 )
 
 @HiltViewModel
-class SharedViewModel @Inject constructor(
+class MainScreenViewModel @Inject constructor(
     getGroupedMoviesUseCase: GetGroupedMoviesUsecase,
     private val searchUseCase: SearchUseCase
 ) : ViewModel() {

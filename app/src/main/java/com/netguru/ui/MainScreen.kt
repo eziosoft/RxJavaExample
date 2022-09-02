@@ -15,10 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.netguru.rxjavaexample2.SharedViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.netguru.rxjavaexample2.MainScreenViewModel
 
 @Composable
-fun MainScreen(viewModel: SharedViewModel) {
+fun MainScreen(viewModel : MainScreenViewModel = viewModel()) {
     val screenFlow by viewModel.viewStateFlow.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -28,6 +29,7 @@ fun MainScreen(viewModel: SharedViewModel) {
                     viewModel.search(it)
                 })
 
+            Text(text = "Results ${screenFlow.places.size}")
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
             )
