@@ -11,15 +11,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
-
-data class Parameters (
-	val dataset : String,
-	val timezone : String,
-	val rows : Int,
-	val start : Int,
-	val format : String,
-//	val geofilter.distance : List<String>,
-	val facet : List<String>
-
+data class Parameters(
+    val dataset: String,
+    val timezone: String,
+    val rows: Int,
+    val start: Int,
+    val format: String,
+// 	val geofilter.distance : List<String>,
+    val facet: List<String>
 
 )

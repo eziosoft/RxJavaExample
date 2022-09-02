@@ -13,12 +13,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
+data class OpenApiResponse(
 
-data class OpenApiResponse (
-
-	val nhits : Int,
-//	val parameters : Parameters,
-	val records : List<Records>,
-//	val facet_groups : List<Facet_groups>
+    val nhits: Int,
+// 	val parameters : Parameters,
+    val records: List<Records>,
+// 	val facet_groups : List<Facet_groups>
 
 )

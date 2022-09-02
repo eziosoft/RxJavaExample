@@ -2,7 +2,7 @@ package com.netguru.repository
 
 import com.netguru.remote.OpenApi
 
-class Repository (private val openApiClient: OpenApi) {
+class Repository(private val openApiClient: OpenApi) {
 
     fun getMovies() = openApiClient.getData(
         dataset = OpenApi.DATASET_FILMING_LOCATIONS_PARIS,

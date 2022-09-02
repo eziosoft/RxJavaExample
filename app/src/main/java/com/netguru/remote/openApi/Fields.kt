@@ -24,5 +24,4 @@ data class Fields(
     val date_debut: String?,
     val ardt_lieu: Int?,
 
-
-    ) : Parcelable
+) : Parcelable

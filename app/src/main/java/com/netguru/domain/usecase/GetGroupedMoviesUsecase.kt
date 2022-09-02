@@ -23,5 +23,6 @@ class GetGroupedMoviesUsecase @Inject constructor(private val repository: Reposi
             }
             .subscribe(
                 { response -> onResponse(Result.success(response)) },
-                { t -> Result.failure<Exception>(t) })
+                { t -> Result.failure<Exception>(t) }
+            )
 }

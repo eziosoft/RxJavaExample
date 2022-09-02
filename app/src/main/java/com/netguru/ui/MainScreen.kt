@@ -27,13 +27,13 @@ fun MainScreen(viewModel: MainScreenViewModel = viewModel()) {
             Search(
                 onSearch = {
                     viewModel.search(it)
-                })
+                }
+            )
 
             Text(text = "Results ${screenFlow.value.places.size}")
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
-            )
-            {
+            ) {
                 items(items = screenFlow.value.places.keys.toList()) {
                     ListItem(
                         text = it,
@@ -80,13 +80,16 @@ fun Search(onSearch: (String) -> Unit) {
                 },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Default),
                 keyboardActions = KeyboardActions(
-                    onDone = { onSearch(text) })
+                    onDone = { onSearch(text) }
+                )
             )
 
-            IconButton(modifier = Modifier
-                .size(24.dp)
-                .weight(0.1f),
-                onClick = { onSearch(text) }) {
+            IconButton(
+                modifier = Modifier
+                    .size(24.dp)
+                    .weight(0.1f),
+                onClick = { onSearch(text) }
+            ) {
                 Icon(
                     imageVector = Icons.Filled.Search,
                     contentDescription = "contentDescription",

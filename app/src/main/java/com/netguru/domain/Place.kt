@@ -7,4 +7,3 @@ data class Place(
     val lat: Double,
     val lon: Double
 )
-

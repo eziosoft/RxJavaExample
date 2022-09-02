@@ -26,5 +26,6 @@ class SearchUseCase @Inject constructor(private val repository: Repository) {
             }
             .subscribe(
                 { response -> onResponse(Result.success(response)) },
-                { t -> Result.failure<Exception>(t) })
+                { t -> Result.failure<Exception>(t) }
+            )
 }

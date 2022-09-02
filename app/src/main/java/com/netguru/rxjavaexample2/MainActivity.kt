@@ -3,7 +3,6 @@ package com.netguru.rxjavaexample2
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -29,7 +28,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
-
-

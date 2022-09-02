@@ -15,9 +15,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
 @Parcelize
-data class Geometry (
+data class Geometry(
 
-	val type : String,
-	val coordinates : List<Double>
+    val type: String,
+    val coordinates: List<Double>
 
-):Parcelable
+) : Parcelable
