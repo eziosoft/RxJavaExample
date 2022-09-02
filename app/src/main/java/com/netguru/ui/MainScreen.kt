@@ -10,17 +10,17 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
+import androidx.compose.runtime.rxjava2.subscribeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.netguru.rxjavaexample2.MainScreenViewModel
 
 @Composable
-fun MainScreen(viewModel : MainScreenViewModel = viewModel()) {
-    val screenFlow by viewModel.viewStateFlow.collectAsState()
+fun MainScreen(viewModel: MainScreenViewModel = viewModel()) {
+    val screenFlow = viewModel.viewStateSubject.subscribeAsState(initial = ViewState())
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -29,26 +29,26 @@ fun MainScreen(viewModel : MainScreenViewModel = viewModel()) {
                     viewModel.search(it)
                 })
 
-            Text(text = "Results ${screenFlow.places.size}")
+            Text(text = "Results ${screenFlow.value.places.size}")
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
             )
             {
-                items(items = screenFlow.places.keys.toList()) {
+                items(items = screenFlow.value.places.keys.toList()) {
                     ListItem(
                         text = it,
-                        startDate = screenFlow.places[it]?.first()?.startDate ?: "",
-                        endDate = screenFlow.places[it]?.first()?.endDate ?: ""
+                        startDate = screenFlow.value.places[it]?.first()?.startDate ?: "",
+                        endDate = screenFlow.value.places[it]?.first()?.endDate ?: ""
                     )
                 }
             }
 
-            screenFlow.errorMessage?.let {
+            screenFlow.value.errorMessage?.let {
                 ErrorMessage(text = it)
             }
         }
 
-        if (screenFlow.loading) {
+        if (screenFlow.value.loading) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = "Downloading places...")
                 LinearProgressIndicator()

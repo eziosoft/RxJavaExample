@@ -1,4 +1,4 @@
-package com.netguru.rxjavaexample2
+package com.netguru.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,8 +7,7 @@ import com.netguru.domain.usecase.GetGroupedMoviesUsecase
 import com.netguru.domain.usecase.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,8 +22,7 @@ class MainScreenViewModel @Inject constructor(
     getGroupedMoviesUseCase: GetGroupedMoviesUsecase,
     private val searchUseCase: SearchUseCase
 ) : ViewModel() {
-    private val _viewStateFlow = MutableStateFlow(ViewState())
-    val viewStateFlow = _viewStateFlow.asStateFlow()
+    val viewStateSubject: BehaviorSubject<ViewState> = BehaviorSubject.create()
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     init {
@@ -44,22 +42,16 @@ class MainScreenViewModel @Inject constructor(
     }
 
     private fun showLoading() {
-        viewModelScope.launch {
-            _viewStateFlow.emit(ViewState(loading = true))
-        }
+        viewStateSubject.onNext(ViewState(loading = true))
     }
 
     private fun setViewState(result: Result<Map<String, List<Place>>>) {
         viewModelScope.launch {
             when {
                 result.isSuccess ->
-                    _viewStateFlow.emit(
-                        ViewState(places = result.getOrDefault(emptyMap()))
-                    )
+                    viewStateSubject.onNext(ViewState(places = result.getOrDefault(emptyMap())))
                 result.isFailure ->
-                    _viewStateFlow.emit(
-                        ViewState(errorMessage = result.exceptionOrNull()?.message)
-                    )
+                    viewStateSubject.onNext(ViewState(errorMessage = result.exceptionOrNull()?.message))
             }
         }
     }
