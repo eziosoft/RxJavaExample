@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 data class ViewState(
@@ -46,13 +47,11 @@ class MainScreenViewModel @Inject constructor(
     }
 
     private fun setViewState(result: Result<Map<String, List<Movie>>>) {
-        viewModelScope.launch {
-            when {
-                result.isSuccess ->
-                    viewStateSubject.onNext(ViewState(places = result.getOrDefault(emptyMap())))
-                result.isFailure ->
-                    viewStateSubject.onNext(ViewState(errorMessage = result.exceptionOrNull()?.message))
-            }
+        when {
+            result.isSuccess ->
+                viewStateSubject.onNext(ViewState(places = result.getOrDefault(emptyMap())))
+            result.isFailure ->
+                viewStateSubject.onNext(ViewState(errorMessage = result.exceptionOrNull()?.message))
         }
     }
 

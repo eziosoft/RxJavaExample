@@ -10,7 +10,6 @@ class GetGroupedMoviesUseCase @Inject constructor(private val movieRepository: M
     fun invoke(onResponse: (Result<Map<String, List<Movie>>>) -> Unit) =
         movieRepository.getMovies()
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .map { result ->
                 result.records.map {
                     Movie(
@@ -20,6 +19,7 @@ class GetGroupedMoviesUseCase @Inject constructor(private val movieRepository: M
                     )
                 }.groupBy { it.movieTitle }
             }
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { response -> onResponse(Result.success(response)) },
                 { t -> Result.failure<Exception>(t) }

@@ -2,6 +2,7 @@ package com.netguru.data.remote
 
 import com.netguru.data.remote.models.OpenApiResponse
 import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -28,5 +29,5 @@ interface OpenApi {
         @Query("facet") fields: List<String>,
         @Query("geofilter.distance") geofilterDistance: String,
         @Query("rows") rows: Int = 10000
-    ): Observable<OpenApiResponse>
+    ): Single<OpenApiResponse>
 }
