@@ -10,7 +10,6 @@ class SearchUseCase @Inject constructor(private val movieRepository: MovieReposi
     fun invoke(searchText: String, onResponse: (Result<Map<String, List<Movie>>>) -> Unit) =
         movieRepository.getMovies()
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .map { result ->
                 result.records.filter {
                     it.fields.nom_tournage?.uppercase()?.contains(searchText.uppercase())
@@ -23,6 +22,7 @@ class SearchUseCase @Inject constructor(private val movieRepository: MovieReposi
                     )
                 }.groupBy { it.movieTitle }
             }
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { response -> onResponse(Result.success(response)) },
                 { t -> Result.failure<Exception>(t) }
